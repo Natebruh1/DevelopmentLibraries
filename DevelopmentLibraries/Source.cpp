@@ -4,7 +4,7 @@
 
 int main()
 {
-	auto g = Colours::Red|Colours::Blue;
+	Colours g = Colours::Red|Colours::Blue;
 
 	std::cout << (int)g << std::endl;
 	return 0;
