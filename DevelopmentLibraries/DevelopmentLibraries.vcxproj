@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EnumFlags.h" />
+    <ClInclude Include="MathVector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
