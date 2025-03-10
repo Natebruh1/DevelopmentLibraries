@@ -24,6 +24,12 @@
     <ClInclude Include="MathDerivative.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Erased.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PackedArray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">

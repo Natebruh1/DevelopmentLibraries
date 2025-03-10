@@ -133,6 +133,7 @@
     <ClInclude Include="Erased.h" />
     <ClInclude Include="MathDerivative.h" />
     <ClInclude Include="MathVector.h" />
+    <ClInclude Include="PackedArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp" />
