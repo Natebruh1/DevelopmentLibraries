@@ -13,11 +13,13 @@ Dual testDer(Dual x)
 }
 
 
-struct Transform {
+struct Transform
+{
 	float x = 0, y = 0;
 };
 
-struct Velocity {
+struct Velocity
+{
 	float vx = 0, vy = 0;
 };
 
@@ -36,7 +38,7 @@ int main()
 	vector3 a = { 2.f,12.f,8.f };
 	vector3 b = { 8,1,3 };
 	std::cout << (a*b).x << std::endl;
-
+	b.y = 2.f;
 
 	//Derivateives
 	std::cout << diff(&testDer, a).x<<std::endl;
