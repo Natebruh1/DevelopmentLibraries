@@ -51,12 +51,21 @@ public:
 
 //ECS class for managing entities and components
 class ECS {
+    //Next available ID (incremented per entity)
     Entity next_entity = 1;
 
-    std::unordered_map<std::type_index, IComponentStorage*> components;
+    //Map of type to storage interface
+    mutable std::unordered_map<std::type_index, IComponentStorage*> components; //Note the use of the keyword mutable here to signify that it is ok to modify the map inside of const functions which is especially useful when using the [] operator
 
+
+
+    /* Retrieves or lazily creates the storage for a specific component type T.
+    All component storages inherit from IComponentStorage for type-erased handling.
+    Each ComponentStorage<T> maps entities to component data (unordered_map).
+    This function ensures a single storage instance exists per component type.
+    Used internally by all ECS operations involving component access.               */
     template<typename T>
-    ComponentStorage<T>& get_storage()
+    ComponentStorage<T>& get_storage() const
     {
         std::type_index index(typeid(T)); //Get type index of T for type-erasure (std::type_index is used to store type information at runtime, and we use it to map types to their respective storage)
         if (components.find(index) == components.end())
@@ -98,13 +107,34 @@ public:
         return get_storage<T>().has(e);
     }
 
-    template<typename... Ts, typename Func>
+    template<typename... Ts, typename Func> //Variadic Template for multiple component types and a function that takes an entity and those components
     void each(Func&& func) { //R-Value Reference to a function that takes an entity and components (i.e. Func(Entity, Ts...)) such as a lambda
         auto& first = get_storage<std::tuple_element_t<0, std::tuple<Ts...>>>();
-        for (auto& [e, _] : first.components) {
-            if ((get_storage<Ts>().has(e) && ...)) {
+        for (auto& [e, _] : first.components)
+        {
+            /*Use the first component type in Ts... to seed the iteration.
+            This limits the search space to only entities that already have that component,
+            which improves performance and avoids scanning every entity.
+            For each of those, we check if it also has the other components.
+            This is a practical early-out optimization for ECS queries.     */
+            if ((get_storage<Ts>().has(e) && ...))
+            {
                 func(e, get_storage<Ts>().get(e)...);
             }
         }
     }
+
+    // Executes the given function with the components of entity e,
+// only if it has *all* of the specified component types.
+    template<typename... Ts, typename Func>
+    void with(Entity e, Func&& func)
+    {
+        // Check if the entity has all required components
+        if ((has<Ts>(e) && ...))
+        {
+            // Pass the components to the function
+            func(get<Ts>(e)...);
+        }
+    }
+
 };

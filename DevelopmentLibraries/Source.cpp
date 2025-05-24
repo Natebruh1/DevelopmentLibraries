@@ -56,12 +56,18 @@ int main()
 
 	ecs.each<Transform, Velocity>([](Entity e, Transform& t, Velocity& v) //Component interaction (and iteration)
 		{
-		t.x += v.vx;
-		t.y += v.vy;
-		std::cout << "Entity " << e << " moved to (" << t.x << ", " << t.y << ")"<<std::endl;
+			t.x += v.vx;
+			t.y += v.vy;
+			std::cout << "Entity " << e << " moved to (" << t.x << ", " << t.y << ")"<<std::endl; //Add together position and velocity
 		});
 
-
+	ecs.with<Transform, Velocity>(e1, [](Transform& t, Velocity& v) // This function will only perform if it can find both components on the entity e1
+		{
+			t.x -= v.vx;
+			t.y -= v.vy;
+		
+		});
+	std::cout << "Entity " << e1 << " moved to (" << ecs.get<Transform>(e1).x << ", " << ecs.get<Transform>(e1).y << ")" << std::endl;
 	return 0;
 }
 
