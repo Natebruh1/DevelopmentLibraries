@@ -29,7 +29,7 @@ union vector3
 	}
 
 
-	float dist(vector3 o)
+	float dist(vector3 o) //Returns the distance to another vector3 object
 	{
 		return std::sqrtf((o.x - x) * (o.x - x) + (o.y - y) * (o.y - y) + (o.z - z) * (o.z - z));
 	}

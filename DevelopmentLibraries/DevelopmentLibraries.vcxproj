@@ -134,6 +134,7 @@
     <ClInclude Include="MathVector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ECS.h" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
