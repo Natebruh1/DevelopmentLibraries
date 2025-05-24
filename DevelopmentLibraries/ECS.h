@@ -7,6 +7,18 @@
 #include <type_traits>
 #include <cassert>
 
+
+
+//// Entity Component System (ECS) header file ////
+//
+// This file defines a simple Entity Component System (ECS) for managing entities and their components.
+// For a more advanced version I should look at Flecs (https://github.com/SanderMertens/flecs/tree/master/src)
+// And try to add a version similar to it that supports: Archetypes, Queries, and Systems.
+// Archetypes is good for cache locality and performance, Queries are good for filtering entities based on components, and Systems are good for processing entities with specific components in a more structured way.
+//
+//// ========================================= ////
+
+
 //Type alias for entity ID
 using Entity = std::uint32_t;
 
@@ -76,7 +88,8 @@ class ECS {
     }
 
 public:
-    ~ECS() {
+    ~ECS()
+    {
         //Cleanup all component storages
         for (auto& [_, ptr] : components)
         {
