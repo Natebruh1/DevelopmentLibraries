@@ -130,6 +130,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EnumFlags.h" />
+    <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="MathDerivative.h" />
     <ClInclude Include="MathVector.h" />
   </ItemGroup>

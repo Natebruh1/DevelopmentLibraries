@@ -71,7 +71,7 @@ class ECS {
 
 
 
-    /* Retrieves or lazily creates the storage for a specific component type T.
+    /* Retrieves or creates the storage for a specific component type T.
     All component storages inherit from IComponentStorage for type-erased handling.
     Each ComponentStorage<T> maps entities to component data (unordered_map).
     This function ensures a single storage instance exists per component type.
